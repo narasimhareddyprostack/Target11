@@ -25,6 +25,30 @@ let Navbar = () => {
               </Link>
             </li>
           </ul>
+          <ul className="navbar-nav ml-auto">
+            <li className="nav-item  acitve">
+              <Link to="/upload" className="nav-link">
+                Upload Product
+              </Link>
+            </li>
+          </ul>
+          <ul className="navbar-nav ml-auto">
+            <li className="nav-item  acitve">
+              <Link to="/login" className="nav-link">
+                Login
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link to="/signup" className="nav-link">
+                Sign Up
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link to="/profile" className="nav-link">
+                Profile
+              </Link>
+            </li>
+          </ul>
         </div>
       </nav>
     </React.Fragment>
