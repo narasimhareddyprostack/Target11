@@ -17,11 +17,16 @@ const db_url = process.env.MONGO_DB_LOCAL_URL;
 
 app.use(morgan("dev"));
 
+// Reading form data
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 app.get("/", (req, res) => {
   res.send("<h1> Pro Cart Application</h1>");
 });
 
 app.use("/user", require("./router/userRouter"));
+//app.use("/product", require("./router/productRouter"));
 mongoose
   .connect(db_url, { useNewUrlParser: true, useUnifiedTopology: true })
   .then((response) => {
