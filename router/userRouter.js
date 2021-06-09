@@ -23,6 +23,7 @@ router.post("/register", async (req, resp) => {
 
     //Save the form data in collection
     user = new User({ name, email, password });
+    console.log(user);
     user = await user.save();
     resp.status(200).json({ result: "Success", user: user });
   } catch (err) {
@@ -30,8 +31,33 @@ router.post("/register", async (req, resp) => {
     resp.status(500).json({ error: "Server Error" });
   }
 });
-router.post("/login", (req, resp) => {
-  //logic
-  resp.send("<h2> Login Req</h2>");
+/*
+API Name: localhost:5000/user/login
+Method : POST
+Fields: Email, Password
+*/
+router.post("/login", async (req, resp) => {
+  try {
+    // read form data
+    let { email, password } = req.body;
+    //Verify Register Usr or Not (using Email)
+    let user = await User.findOne({ email: email });
+    if (!user) {
+      return resp.status(400).json({ error: "User Account Not Available" });
+    }
+    //verify the password
+    let result = await bcrypt.compare(password, user.password);
+    //console.log(result);
+    if (!result) {
+      return resp.status(400).json({ status: " Password Not Matches" });
+    }
+    let payload = {
+      user: { id: user.id },
+    };
+    console.log(payload, "Payload");
+  } catch (err) {
+    if (err) throw err;
+    resp.status(500).json({ error: "Server Error" });
+  }
 });
 module.exports = router;
