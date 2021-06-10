@@ -1,7 +1,7 @@
 const express = require("express");
 const User = require("../model/User");
 const router = express.Router();
-
+const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 /*
   Name API: localhost:5000/user/register
@@ -49,12 +49,17 @@ router.post("/login", async (req, resp) => {
     let result = await bcrypt.compare(password, user.password);
     //console.log(result);
     if (!result) {
-      return resp.status(400).json({ status: " Password Not Matches" });
+      return resp.status(400).json({ status: "Password Not Matches" });
     }
     let payload = {
       user: { id: user.id },
     };
-    console.log(payload, "Payload");
+    jwt.sign(payload, process.env.Secret_KEY, (err, token) => {
+      if (err) throw err;
+      console.log(token);
+      resp.status(200).json({ status: "Login Success", token: token });
+    });
+    console.log(process.env.Secret_KEY);
   } catch (err) {
     if (err) throw err;
     resp.status(500).json({ error: "Server Error" });

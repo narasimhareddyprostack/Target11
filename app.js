@@ -26,7 +26,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/user", require("./router/userRouter"));
-//app.use("/product", require("./router/productRouter"));
+app.use("/product", require("./router/productRouter"));
 mongoose
   .connect(db_url, { useNewUrlParser: true, useUnifiedTopology: true })
   .then((response) => {
