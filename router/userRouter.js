@@ -3,6 +3,7 @@ const User = require("../model/User");
 const router = express.Router();
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
+const auth = require("../middleware/auth");
 /*
   Name API: localhost:5000/user/register
   Method: POST
@@ -65,4 +66,22 @@ router.post("/login", async (req, resp) => {
     resp.status(500).json({ error: "Server Error" });
   }
 });
+
+/*
+API Name: localhost:5000/user/
+Method : POST
+Access Type: Private
+*/
+router.get("/", auth, async (req, res) => {
+  try {
+    console.log(req.user.id);
+    console.log(req.user);
+    let user = await User.findById(req.user.id).select("-password");
+    res.status(200).json(user);
+  } catch (err) {
+    if (err) throw err;
+    resp.status(500).json({ error: "Server Error" });
+  }
+});
+
 module.exports = router;
