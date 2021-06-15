@@ -31,7 +31,11 @@ router.post("/upload", async (req, res) => {
     if (err) throw err;
   }
 });
-
+/*
+    API: localhost:5000/product/mobile
+    Method:GET
+    Access : PRIVATE
+*/
 router.get("/mobile", async (req, res) => {
   try {
     let product = await Product.find({ category: "Mobile" });
@@ -42,6 +46,11 @@ router.get("/mobile", async (req, res) => {
     res.status(500).json({ status: "Server Error" });
   }
 });
+/*
+    API: localhost:5000/product/watches
+    Method:GET
+    Access : PRIVATE
+*/
 router.get("/watches", async (req, res) => {
   try {
     let product = await Product.find({ category: "Watches" });
@@ -52,6 +61,11 @@ router.get("/watches", async (req, res) => {
     res.status(500).json({ status: "Server Error" });
   }
 });
+/*
+    API: localhost:5000/product/laptops
+    Method:GET
+    Access : PRIVATE
+*/
 router.get("/laptops", async (req, res) => {
   try {
     let product = await Product.find({ category: "Laptops" });

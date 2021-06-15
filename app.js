@@ -2,7 +2,7 @@
 //create Express App
 const express = require("express");
 const app = express();
-
+var cors = require("cors");
 // Configuration Setting
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
@@ -14,7 +14,7 @@ const morgan = require("morgan");
 dotenv.config({ path: "./config/config.env" });
 const PORT = process.env.PORT;
 const db_url = process.env.MONGO_DB_LOCAL_URL;
-
+app.use(cors());
 app.use(morgan("dev"));
 
 // Reading form data
