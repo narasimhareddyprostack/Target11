@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { uploadProductAction } from "../../redux/products/product.action";
 let Upload = () => {
   let dispatch = useDispatch();
+  let history = useHistory();
   let [product, setProduct] = useState({
     name: "",
     brand: "",
-    image: "",
+    image: "image one",
     price: "",
     qty: "",
     category: "",
@@ -18,8 +20,8 @@ let Upload = () => {
     setProduct({ ...product, [event.target.name]: event.target.value });
   };
   let submitHandler = (event) => {
-    dispatch(uploadProductAction(product));
     event.preventDefault();
+    dispatch(uploadProductAction(product, history));
   };
   return (
     <>
