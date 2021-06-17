@@ -8,7 +8,7 @@ let Upload = () => {
   let [product, setProduct] = useState({
     name: "",
     brand: "",
-    image: "image one",
+    image: "",
     price: "",
     qty: "",
     category: "",
@@ -18,6 +18,24 @@ let Upload = () => {
 
   let inputHandler = (event) => {
     setProduct({ ...product, [event.target.name]: event.target.value });
+  };
+  let imageHandler = (event) => {
+    console.log("imageHandler...");
+    //convert image to string(base64)
+    let imageFile = event.target.files[0];
+    let reader = new FileReader();
+
+    reader.readAsDataURL(imageFile);
+    console.log(reader);
+    console.log(reader.result, "....");
+    reader.addEventListener("load", () => {
+      if (reader.result) {
+        setProduct({
+          ...product,
+          image: reader.result,
+        });
+      }
+    });
   };
   let submitHandler = (event) => {
     event.preventDefault();
@@ -92,6 +110,7 @@ let Upload = () => {
                         className="form-control"
                         name="image"
                         placeholder="Product Image"
+                        onChange={imageHandler}
                       />
                     </div>
                     <div className="form-group">
